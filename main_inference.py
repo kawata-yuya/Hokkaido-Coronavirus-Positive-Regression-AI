@@ -33,7 +33,6 @@ def main():
         104,        # 予想する日の01日前の北海道のコロナウイルス感染者数
     ]]
 
-
     # 今後の感染者数を予想しグラフに表示をするか。
     graph = True        # or False
     # 感染者数の予想する日数を設定
@@ -47,11 +46,12 @@ def main():
     # 正規化するための平均値と標準偏差をロード
     cpns.load('./model_data/CoronaPredictionNormalScale.npz')
 
-
     # 重回帰分析に必要なニューるネットワークをインスタンス化
     model = create_model()
     # 学習済みの重回帰モデルの重みをロード
-    model.load_weights('./model_data/corona_ai_checkpoints/corona_ai_checkpoint')
+    model.load_weights(
+        './model_data/corona_ai_checkpoints/corona_ai_checkpoint'
+    )
 
     # ニューラルネットワークの入力層、隠れ層、出力層の次元などの情報を表示
     """
@@ -75,7 +75,7 @@ def main():
     _________________________________________________________________
     """
     model.summary()
-    
+
     # 入力された計15個のパラメータから、次の北海道のコロナ感染者数を予測
     r = model.predict(cpns.transform(data))[0, 0]
     # 計算結果を表示
@@ -86,7 +86,7 @@ def main():
         for i in range(1, compute_range+1):
             expected = model.predict(cpns.transform(data))[0, 0]
             y.append(expected)
-            data = [[(data[0][0])%7+1] + data[0][2:] + [expected]]
+            data = [[(data[0][0]) % 7+1] + data[0][2:] + [expected]]
 
         x = pd.date_range(expected_day, periods=compute_range, freq='d')
         plot(x, y)
@@ -96,7 +96,7 @@ class CoronaPredictionNormalScale:
     def __init__(self):
         self.mean = None
         self.std = None
-    
+
     def fit(self, data):
         self.mean = np.mean(data, axis=0)
         self.std = np.std(data, axis=0)
@@ -125,7 +125,6 @@ def create_model():
         layers.Dense(1)
     ])
 
-
     model.compile(
         loss='mse',
         optimizer=keras.optimizers.Adam(0.0001, epsilon=1e-2),
@@ -144,7 +143,7 @@ def plot(x, y):
     daysFmt = mdates.DateFormatter('%y-%m-%d')
     ax.xaxis.set_major_locator(mdates.AutoDateLocator(maxticks=8))
     ax.xaxis.set_major_formatter(daysFmt)
-    
+
     plt.xlabel('今後(日後)')
     plt.ylabel('北海道 コロナ新規感染者(人)')
     plt.title('今後の北海道の感染者予測')
