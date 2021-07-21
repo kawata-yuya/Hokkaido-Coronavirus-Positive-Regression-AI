@@ -15,7 +15,8 @@ main_inference.pyのmain()の下にある[User Settings](https://github.com/kawa
 ```
 $ python3 main_inference.py  
 ```
-実行すると、北海道コロナウィルス感染者数の計算予想結果と今後の予想グラフが表示されます。  
+実行すると、北海道コロナウィルス感染者数の計算予想結果と今後の予想グラフが表示されます。   
+また、[Google Colaboratory](https://colab.research.google.com/github/kawata-yuya/Hokkaido-Coronavirus-Positive-Regression-AI/blob/master/main_colab.ipynb)でも実行可能です。
 
 ## 注意  
 計算結果はあくまでも予想であり、本当の値を示すわけではありません。  
