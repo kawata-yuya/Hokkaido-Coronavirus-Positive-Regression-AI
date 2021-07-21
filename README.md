@@ -10,7 +10,7 @@ $ cd Hokkaido-Coronavirus-Positive-Regression-AI
 $ pip3 install -r requirements.txt
 ```
 予想するために必要なパラメーターを設定
-main_inference.pyのmain()の下にあるUser Settingsに予想したい日の日付、過去14日間の感染者数と曜日を入力。  
+main_inference.pyのmain()の下にある[User Settings](https://github.com/kawata-yuya/Hokkaido-Coronavirus-Positive-Regression-AI/blob/master/main_inference.py#L15)に予想したい日の日付、過去14日間の感染者数と曜日を入力。  
 ファイルの実行
 ```
 $ python3 main_inference.py  
